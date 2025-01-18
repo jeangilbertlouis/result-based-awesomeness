@@ -1,5 +1,4 @@
-﻿using System.Net;
-using System.Text;
+﻿using System.Text;
 using Azure;
 using Azure.Storage.Blobs;
 using ClassicApplication;
@@ -38,24 +37,5 @@ public class ClassicVehicleRepository(ISerializer serializer, BlobContainerClien
         var blobClient = containerClient.GetBlobClient(vehicle.Id);
         var content = serializer.Serialize(vehicle);
         await blobClient.UploadAsync(new MemoryStream(Encoding.UTF8.GetBytes(content)), true);
-    }
-}
-
-public class ClassicVehicleGateway(HttpClient httpClient, ISerializer serializer) : IClassicVehicleGateway
-{
-    public async Task<VehicleDto> GetById(string id)
-    {
-        if(string.IsNullOrWhiteSpace(id))
-            throw new ArgumentException("Id cannot be null or empty", nameof(id));
-        
-        var response = await httpClient.GetAsync($"vehicles/{id}");
-        
-        if(response.StatusCode == HttpStatusCode.NotFound)
-            throw new NotFoundException($"Vehicle with id {id} not found");
-        
-        response.EnsureSuccessStatusCode();
-        
-        var content = await response.Content.ReadAsStringAsync();
-        return serializer.Deserialize<VehicleDto>(content);
     }
 }
