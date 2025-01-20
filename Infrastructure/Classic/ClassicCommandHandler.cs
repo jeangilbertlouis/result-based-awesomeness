@@ -3,9 +3,9 @@ using ClassicApplication;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 
-namespace Infrastructure;
+namespace Infrastructure.Classic;
 
-public class CommandHandler(ServiceBusProcessor processor, IServiceProvider serviceProvider) : IHostedService
+public class ClassicCommandHandler(ServiceBusProcessor processor, IServiceProvider serviceProvider) : IHostedService
 {
     public async Task StartAsync(CancellationToken cancellationToken)
     {
@@ -23,7 +23,7 @@ public class CommandHandler(ServiceBusProcessor processor, IServiceProvider serv
     private async Task MessageHandler(ProcessMessageEventArgs args)
     {
         using var scope = serviceProvider.CreateScope();
-        var service = scope.ServiceProvider.GetRequiredService<VehicleService>();
+        var service = scope.ServiceProvider.GetRequiredService<ClassicVehicleService>();
         var serializer = scope.ServiceProvider.GetRequiredService<ISerializer>();
         var idToAddCommand = serializer.Deserialize<string>(args.Message.Body.ToString());
 

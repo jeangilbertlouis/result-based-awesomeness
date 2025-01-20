@@ -12,6 +12,7 @@
 
     <ItemGroup>
       <ProjectReference Include="..\ClassicApplication\ClassicApplication.csproj" />
+      <ProjectReference Include="..\ResultBasedApplication\ResultBasedApplication.csproj" />
     </ItemGroup>
 
     <ItemGroup>

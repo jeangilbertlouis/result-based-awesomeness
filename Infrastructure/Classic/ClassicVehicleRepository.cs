@@ -2,8 +2,9 @@
 using Azure;
 using Azure.Storage.Blobs;
 using ClassicApplication;
+using VehicleDto = ClassicApplication.VehicleDto;
 
-namespace Infrastructure;
+namespace Infrastructure.Classic;
 
 public class ClassicVehicleRepository(ISerializer serializer, BlobContainerClient containerClient)
     : IClassicVehicleRepository

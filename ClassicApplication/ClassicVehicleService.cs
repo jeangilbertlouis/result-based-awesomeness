@@ -1,6 +1,6 @@
 ﻿namespace ClassicApplication;
 
-public class VehicleService(IClassicVehicleRepository repository, IClassicVehicleGateway gateway)
+public class ClassicVehicleService(IClassicVehicleRepository repository, IClassicVehicleGateway gateway)
 {
     public async Task<Vehicle> GetVehicle(string id)
     {
@@ -16,14 +16,20 @@ public class VehicleService(IClassicVehicleRepository repository, IClassicVehicl
         }
         catch (NotFoundException)
         {
+            //If not found, try to get from gateway
             var vehicleDto =  await gateway.GetById(id);
+            
+            //Save to repository for future use
             await repository.Add(vehicleDto);
             return MapToVehicle(vehicleDto);
         }
     }
     
-    public async Task<List<Vehicle?>> GetVehicles(IEnumerable<string> ids)
+    public async Task<List<Vehicle?>> GetVehicles(List<string>? ids)
     {
+        if(ids is null || ids.Count == 0)
+            throw new ArgumentException("Ids cannot be null or empty", nameof(ids));
+        
         var vehicles = new List<Vehicle?>();
         
         foreach (var id in ids)

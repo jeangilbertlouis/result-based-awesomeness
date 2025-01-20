@@ -1,7 +1,8 @@
 ﻿using System.Net;
 using ClassicApplication;
+using VehicleDto = ClassicApplication.VehicleDto;
 
-namespace Infrastructure;
+namespace Infrastructure.Classic;
 
 public class ClassicVehicleGateway(HttpClient httpClient, ISerializer serializer) : IClassicVehicleGateway
 {

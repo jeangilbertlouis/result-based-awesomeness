@@ -2,13 +2,13 @@
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Http;
 
-namespace Infrastructure;
+namespace Infrastructure.Classic;
 
 public static class ClassicController
 {
     public static WebApplication AddControllers(this WebApplication app)
     {
-        app.MapGet("/cars/{id}", async (string id, VehicleService service) =>
+        app.MapGet("/cars/{id}", async (string id, ClassicVehicleService service) =>
         {
             try
             {
@@ -28,7 +28,7 @@ public static class ClassicController
                 return Results.StatusCode(StatusCodes.Status500InternalServerError);
             }
         });
-        app.MapGet("/cars", async (VehicleService service) =>
+        app.MapGet("/cars", async (ClassicVehicleService service) =>
         {
             try
             {
