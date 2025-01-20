@@ -26,7 +26,7 @@ public class ResultBasedVehicleService(IResultBasedVehicleRepository repository,
                 return vehicleFromGatewayResult.ToResult();
             
             //If gateway has the vehicle, save it to the repo
-            var addResult = await repository.Add(vehicleFromGatewayResult.Value);
+            var addResult = await repository.Upsert(vehicleFromGatewayResult.Value);
             addResult.LogIfFailed<ResultBasedVehicleService>();
             
             return MapToVehicle(vehicleFromGatewayResult.Value);
@@ -66,7 +66,7 @@ public class ResultBasedVehicleService(IResultBasedVehicleRepository repository,
         var vehicleDtoResult = await gateway.GetById(id);
         if(vehicleDtoResult.IsFailed) return vehicleDtoResult.ToResult();
         
-        return await repository.Add(vehicleDtoResult.Value);
+        return await repository.Upsert(vehicleDtoResult.Value);
     }
 
     private static Result<Vehicle> MapToVehicle(VehicleDto vehicleDto)

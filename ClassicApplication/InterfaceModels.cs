@@ -3,7 +3,7 @@
 public interface IClassicVehicleRepository
 {
     Task<VehicleDto> GetById(string id);
-    Task Add(VehicleDto vehicle);
+    Task Upsert(VehicleDto vehicle);
 }
 
 public class NotFoundException(string message) : Exception(message);

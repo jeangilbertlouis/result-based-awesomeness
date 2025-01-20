@@ -30,7 +30,7 @@ public class ClassicVehicleRepository(ISerializer serializer, BlobContainerClien
         }
     }
 
-    public async Task Add(VehicleDto vehicle)
+    public async Task Upsert(VehicleDto vehicle)
     {
         if(vehicle == null)
             throw new ArgumentNullException(nameof(vehicle));

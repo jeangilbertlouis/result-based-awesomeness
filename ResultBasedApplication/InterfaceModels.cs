@@ -5,7 +5,7 @@ namespace ResultBasedApplication;
 public interface IResultBasedVehicleRepository
 {
     Task<Result<VehicleDto>> GetById(string id);
-    Task<Result> Add(VehicleDto vehicle);
+    Task<Result> Upsert(VehicleDto vehicle);
 }
 
 public class NotFoundError(string message) : Error(message);

@@ -30,7 +30,7 @@ public class ResultBasedVehicleRepository(IResultBasedSerializer serializer, Blo
         }
     }
 
-    public async Task<Result> Add(VehicleDto? vehicle)
+    public async Task<Result> Upsert(VehicleDto? vehicle)
     {
         try
         {

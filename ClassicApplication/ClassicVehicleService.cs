@@ -20,7 +20,7 @@ public class ClassicVehicleService(IClassicVehicleRepository repository, IClassi
             var vehicleDto =  await gateway.GetById(id);
             
             //Save to repository for future use
-            await repository.Add(vehicleDto);
+            await repository.Upsert(vehicleDto);
             return MapToVehicle(vehicleDto);
         }
     }
@@ -55,7 +55,7 @@ public class ClassicVehicleService(IClassicVehicleRepository repository, IClassi
     public async Task UpdateVehicle(string id)
     {
         var vehicleDto = await gateway.GetById(id);
-        await repository.Add(vehicleDto);
+        await repository.Upsert(vehicleDto);
     }
     
     private static Vehicle MapToVehicle(VehicleDto vehicleDto)
